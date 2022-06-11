@@ -29,6 +29,75 @@ if(session.getAttribute("roleDB")!= "admin"){
 }
 %>
 
+<!-- demo -->
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+      
+        <h5 class="modal-title" id="exampleModalLabel">Adding a flight</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      <form action="AddFlightServlet" method="post">
+      <div class="mb-3">
+    <label  class="form-label">Flight No.</label>
+    <input type="text" class="form-control" id="addflightnoid" name="addflightnoid" >
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">Flight Name</label>
+    <input type="text" class="form-control" id="addflightnameid" name="addflightnameid" >
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">From city</label>
+    <input type="text" class="form-control" id="addfromcityid" name="addfromcityid" >
+  </div>
+ 
+    <div class="mb-3">
+    <label  class="form-label">To City</label>
+    <input type="text" class="form-control" id="addtocityid" name="addtocityid" >
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">Date</label>
+    <input type="text" class="form-control" id="adddateid"  name="adddateid">
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">Time</label>
+    <input type="text" class="form-control" id="addtimeid" name="addtimeid">
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">Airport Name</label>
+    <input type="text" class="form-control" id="addairportnameid" name="addairportnameid" >
+  </div>
+  
+  <div class="mb-3">
+    <label  class="form-label">Price</label>
+    <input type="text" class="form-control" id="addpriceid" name="addpriceid" >
+  </div>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       
+        <button type="submit" class="btn btn-primary">Add</button>
+       </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- demo -->
+
 <br>
 <br>
 <div class="container-fluid text-center" >
@@ -42,9 +111,9 @@ if(session.getAttribute("roleDB")!= "admin"){
 
 <table class="table table-light table-hover table-bordered caption-top">
 <caption>
-<form >
-<button type="submit" class="btn btn-primary">Add Flight</button>
-</form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ Add Flight
+</button>
 </caption>
   <thead class="table-info">
     <tr>
@@ -109,6 +178,14 @@ if(session.getAttribute("roleDB")!= "admin"){
 
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script >
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
 
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+
+</script>
 </body>
 </html>

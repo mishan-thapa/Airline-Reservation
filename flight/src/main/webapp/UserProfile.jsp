@@ -1,3 +1,7 @@
+<%@page import="ticket.ticketdao"%>
+<%@page import="flight.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%@page import="ticket.ticket"%>
 <%@page import="com.mysql.cj.jdbc.interceptors.SessionAssociationInterceptor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -29,44 +33,103 @@ if(session.getAttribute("roleDB")!= "user"){
 <%@include file="normal_navbar.jsp" %>
 
 
-
+<br>
+<div class="container d-flex justify-content-center">
+<h2>Profile</h2>
+</div>
 
 <!-- container start -->
 
-<div class="container ">
+<div class="container d-flex justify-content-center">
 
-<!-- column div start -->
-<div class="row justify-content-center">
-    <div class="col-md-4 ">
-     
-     User
-     <div class="card">
-  <div class="card-body">
-    full name:  <%= session.getAttribute("fname") %>
+<div class="row">
+
+<div class="col-md-4 ">
+
+<!-- card -->
+<div class="card border-primary mb-3" style="width: 25rem;">
+  <div class="card-body ">
+  
+  
+full name:  <%= session.getAttribute("fname") %>
     <%= session.getAttribute("lname") %>
     <br>
     email: <%= session.getAttribute("email") %>
+
   </div>
 </div>
-     
-    </div>
-    <div class="col">
-      Ticket
-      <div class="card">
-  <div class="card-body">
-    booked ticket:
-    <br>
-    <%= session.getAttribute("fname") %>
-  </div>
+
 </div>
-      
-      
-    </div>
-  </div>
-<!-- column div end -->
-  
+
 </div>
+
+</div>
+
 <!-- container end -->
+
+<!-- booked ticket container start -->
+
+<div class="container d-flex justify-content-center">
+<h2>your booked tickets</h2>
+</div>
+
+<table  class="table table-light table-hover table-bordered ">
+<thead  class="table-info">
+    <tr>
+      <th scope="col">flight no.</th>
+      <th scope="col">flight name</th>
+      <th scope="col">from city</th>
+      <th scope="col">to city</th>
+      <th scope="col">date</th>
+      <th scope="col">time</th>
+      <th scope="col">airsport name</th>
+      <th scope="col">price</th>
+      <th scope="col">No. of tickets</th>
+    </tr>
+  </thead>
+<% 
+String query = "select * from bookedflights where email=? ";
+   String emailString =(String)session.getAttribute("email");
+   
+   String url="jdbc:mysql://localhost:3306/airreservation";
+	String user="root";
+	String password="locus19#";
+	
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection con=DriverManager.getConnection(url,user,password);
+	PreparedStatement pstm = con.prepareStatement(query);
+	pstm.setString(1, emailString);
+	ResultSet res = pstm.executeQuery();
+   while(res.next()){
+	   String flightno =res.getString(1);
+	   String flightname = res.getString(2);
+	   String fromcity = res.getString(3);
+	   String tocity =res.getString(4);
+	   String date =res.getString(5);
+	   String time =res.getString(6);
+	   String airportname =res.getString(7);
+	   String price =res.getString(8);
+	   String ticketno= res.getString(11);
+	   %>
+	   
+  <tbody>
+    <tr>
+      <th scope="row"><%= flightno%></th>
+      <td><%= flightname %></td>
+      <td><%=fromcity %></td>
+      <td><%= tocity %></td>
+      <td><%=date %></td>
+      <td><%= time %></td>
+      <td><%=airportname %></td>
+      <td><%= price %></td>
+      <td><%= ticketno %></td>
+      
+    </tr>
+    <%} %>
+ </tbody>
+</table>
+
+<!-- booked ticket container end -->
 
 
 

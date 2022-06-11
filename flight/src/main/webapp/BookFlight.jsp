@@ -27,13 +27,68 @@ if(session.getAttribute("roleDB")!= "user"){
 %>
 
 <br>
+
+
+<!-- for selected ticket start -->
+
+<div class="container-fluid text-center sticky-top" >
+<h2>Selected Flight</h2>
+
+
+
+<!-- table start -->
+
+<form id="bookFormid" action="BookFlightServlet" method="post">
+<button type="submit" class="btn btn-primary">Book Flight</button> No.of tickets <input type="text" name="numberofticketid1" id="numberofticketid1" value="" />
+
+<input type="hidden" name="flightnumberid1" id="flightnumberid1" value="" required/>
+<input type="hidden" name="flightnameid1" id="flightnameid1" value="" required />
+<input type="hidden" name="fromcityid1" id="fromcityid1" value="" required/>
+<input type="hidden" name="tocityid1" id="tocityid1" value="" required/>
+<input type="hidden" name="dateid1" id="dateid1" value="" required/>
+<input type="hidden" name="timeid1" id="timeid1" value="" required/>
+<input type="hidden" name="airportnameid1" id="airportnameid1" value="" required/>
+<input type="hidden" name="priceid1" id="priceid1" value="" />
+<input type="hidden" name="fnameid1" id="fnameid1" value="<%= session.getAttribute("fname") %>" />
+<input type="hidden" name="emailid1" id="emailid1" value="<%= session.getAttribute("email") %>" />
+
+
+
+<table class="table table-light">
+  
+  <tbody>
+    <tr>
+      <th scope="row"><p id="flightnumberid" value=""></p></th>
+      <td><p id="flightnameid"></p></td>
+      <td><p id="fromcityid"></p></td>
+      <td><p id="tocityid"></p></td>
+      <td><p id="dateid"></p></td>
+      <td><p id="timeid"></p></td>
+      <td><p id="airportnameid"></p></td>
+      <td><p id="priceid"></p></td>
+    </tr>
+    
+  </tbody>
+</table>
+</form>
+<!-- tabble end -->
+</div>
+
+
+<!-- for selected ticket end -->
+
+<br>
 <div class="container-fluid text-center" >
 <h2>Flight List</h2>
 </div>
+
+
+
 <!-- coding to display table start -->
 
-<table class="table table-light table-hover table-bordered ">
-  <thead class="table-info">
+<table id="booktable" class="table table-light table-hover table-bordered ">
+
+  <thead  class="table-info">
     <tr>
       <th scope="col">flight no.</th>
       <th scope="col">flight name</th>
@@ -43,7 +98,6 @@ if(session.getAttribute("roleDB")!= "user"){
       <th scope="col">time</th>
       <th scope="col">airsport name</th>
       <th scope="col">price</th>
-      <th scope="col"></th>
     </tr>
   </thead>
   <% 
@@ -77,11 +131,7 @@ if(session.getAttribute("roleDB")!= "user"){
       <td><%= time %></td>
       <td><%=airportname %></td>
       <td><%= price %></td>
-      <td>
-      <form action="TestServlet" method="post" >
-      <button type="submit" class="btn btn-primary">Book</button>
-      </form>
-      </td>
+      
     </tr>
     <%} %>
   </tbody>
@@ -92,14 +142,53 @@ if(session.getAttribute("roleDB")!= "user"){
 
 <!-- coding to display table end -->
 
-<!-- table start -->
 
-<!-- table end -->
+<p id="demo"></p>
+<p id="demo2"></p>
 
 
 
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script >
 
+var rIndex,booktable=document.getElementById("booktable");
+
+function selectedRowToInput()
+{
+    
+    for(var i = 1; i < booktable.rows.length; i++)
+    {
+        booktable.rows[i].onclick = function()
+        {
+          // get the seected row index
+          rIndex = this.rowIndex;
+          
+          document.getElementById('flightnumberid').innerHTML = this.cells[0].innerHTML;
+          document.getElementById("flightnameid").innerHTML = this.cells[1].innerHTML;
+          document.getElementById("fromcityid").innerHTML = this.cells[2].innerHTML;
+          document.getElementById("tocityid").innerHTML = this.cells[3].innerHTML;
+          document.getElementById("dateid").innerHTML = this.cells[4].innerHTML;
+          document.getElementById("timeid").innerHTML = this.cells[5].innerHTML;
+          document.getElementById("airportnameid").innerHTML = this.cells[6].innerHTML;
+          document.getElementById("priceid").innerHTML = this.cells[7].innerHTML;
+          
+          
+          document.getElementById('flightnumberid1').value = this.cells[0].innerHTML;
+          document.getElementById("flightnameid1").value = this.cells[1].innerHTML;
+          document.getElementById("fromcityid1").value = this.cells[2].innerHTML;
+          document.getElementById("tocityid1").value = this.cells[3].innerHTML;
+          document.getElementById("dateid1").value = this.cells[4].innerHTML;
+          document.getElementById("timeid1").value = this.cells[5].innerHTML;
+          document.getElementById("airportnameid1").value= this.cells[6].innerHTML;
+          document.getElementById("priceid1").value = this.cells[7].innerHTML;
+          //document.getElementById("lname").value = this.cells[1].innerHTML;
+         // document.getElementById("age").value = this.cells[2].innerHTML;
+        };
+    }
+}
+selectedRowToInput();
+
+</script>
 </body>
 </html>

@@ -59,4 +59,24 @@
     <servlet-name>AdminLogOut</servlet-name>
     <url-pattern>/AdminLogOut</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BookFlightServlet</display-name>
+    <servlet-name>BookFlightServlet</servlet-name>
+    <servlet-class>ticket.BookFlightServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BookFlightServlet</servlet-name>
+    <url-pattern>/BookFlightServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddFlightServlet</display-name>
+    <servlet-name>AddFlightServlet</servlet-name>
+    <servlet-class>admin.AddFlightServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFlightServlet</servlet-name>
+    <url-pattern>/AddFlightServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
